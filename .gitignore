@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+test.xlsx
+lotto_history*.csv
+data/
