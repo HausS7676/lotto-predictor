@@ -146,14 +146,12 @@ def fetch_lotto_data(draw_no):
 
 def init_supabase():
     try:
-        import streamlit as st
-        if "supabase" in st.secrets:
+        if hasattr(st, "secrets") and "supabase" in st.secrets:
             url = st.secrets["supabase"]["url"]
             key = st.secrets["supabase"]["key"]
             return {"url": url, "key": key}
-    except Exception as e:
-        import streamlit as st
-        st.error(f"Supabase 설정 오류: {e}")
+    except Exception:
+        pass
     return None
 
 def sync_to_supabase(supabase_client, df_or_list):
