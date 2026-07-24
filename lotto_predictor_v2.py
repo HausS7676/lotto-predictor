@@ -5,7 +5,7 @@ import random
 import requests
 import os
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 import urllib3
 import concurrent.futures
 
@@ -113,9 +113,14 @@ HISTORY_FILE_V2 = os.path.join(script_dir, "lotto_history_v2.csv")
 def get_latest_draw_no():
     start_date = datetime(2002, 12, 7, 20, 45)
     now = datetime.now()
+    if now < start_date:
+        return 1
     diff = now - start_date
-    latest = diff.days // 7 + 1
-    return latest
+    weeks = diff.days // 7
+    latest_draw_time = start_date + timedelta(days=weeks * 7)
+    if now < latest_draw_time:
+        return max(1, weeks)
+    return max(1, weeks + 1)
 
 def fetch_lotto_data(draw_no):
     url = f"https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo={draw_no}"

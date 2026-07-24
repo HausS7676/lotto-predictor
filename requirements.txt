@@ -5,6 +5,7 @@ requests>=2.31.0
 beautifulsoup4>=4.12.0
 plotly>=5.18.0
 pytest>=8.0.0
-
 openpyxl
 xlrd
+lxml
+html5lib
